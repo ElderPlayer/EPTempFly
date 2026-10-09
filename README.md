@@ -1,196 +1,65 @@
-# EPTempFly Wiki
+# EPTempFly - Gelişmiş Süreli Uçuş Eklentisi
 
-Author: ElderPlayer  
-Discord: @elderplayerr  
-Version: 1.1.0
+EPTempFly, oyuncularınıza belirli bir süreliğine uçma yeteneği (TempFly) vermenizi sağlayan, tamamen modern ve kapsamlı bir eklentidir. Oyuncularınızın uçuş deneyimini güvenli ve eğlenceli hale getirmek için tasarlandı.
 
-EPTempFly gives players temporary flight. Flight time can be given by staff, shared between players, bought in a shop, or granted as a join reward. While a player is flying above the ground, an optional particle trail is shown.
+## 🌟 Neden EPTempFly?
 
-The existing claim and island flight rules are unchanged. New systems are optional and turn themselves off when a supporting plugin is missing.
+Bu eklenti sadece süre vermekle kalmaz, oyuncu deneyimini bozan sorunları çözer:
 
-## Requirements
+* **Zaman İsrafı Yok:** Oyuncular yere indiklerinde veya yürüdüklerinde uçuş süresi otomatik olarak duraklatılır. Sadece gerçekten havadayken süre eksilir.
+* **Düşme Koruması:** Oyuncunun uçuş süresi havadayken biterse, eklenti oyuncunun yere güvenli bir şekilde inmesini sağlar ve düşme hasarını engeller.
+* **Görsel Şölen (Partiküller):** Oyuncular, uçarken arkalarında bırakabilecekleri 33'ten fazla farklı partikül efektinden (örn. ateş, su damlası, duman) birini seçebilirler.
+* **Oyuncular Arası Paylaşım:** Oyuncular kendi uçuş sürelerini istedikleri zaman başka oyunculara hediye edebilir veya aktarabilirler.
 
-- Java 21 or newer. The plugin disables itself on older Java.
-- Spigot, Paper, Purpur or another Spigot fork. API level is 1.17, so 1.17 through current Paper/Spigot builds are supported when the server itself runs on Java 21.
-- No hard dependencies.
+## ⚙️ Temel Sistemler ve Entegrasyonlar
 
-Servers older than 1.17, and servers that cannot run Java 21, are outside the supported range. One jar cannot run on both modern Java 21 and legacy Java 8.
+* **Oyun İçi Market:** Vault veya PlayerPoints kullanarak, oyuncularınıza doğrudan menü (GUI) üzerinden uçuş süresi satabilirsiniz.
+* **Bölge ve Ada Koruması:** SuperiorSkyblock2, uxmClaims, WorldGuard, GriefPrevention, FactionsUUID gibi birçok popüler arazi ve ada eklentisiyle tam uyumlu çalışır. Yetkisiz bölgelerde uçuşu engeller.
+* **Çatışma (PvP) Kontrolü:** PvPManager veya CombatLogX ile entegre çalışır. Oyuncu savaşa girdiğinde uçuş otomatik olarak kapatılır.
+* **Giriş Ödülleri:** Sunucunuza ilk defa veya her katıldıklarında oyunculara otomatik uçuş süresi hediye edebilirsiniz.
+* **Ağ (Proxy) Desteği:** BungeeCord ve Velocity desteği sayesinde oyuncuların uçuş süresi tüm sunucularınız arasında sorunsuzca senkronize olur. Sadece .jar dosyasını Proxy sunucunuza da yüklemeniz yeterlidir.
 
-## Install
+## 💾 Veri Depolama ve Dil Desteği
 
-1. Put `EPTempFly-1.1.0.jar` in the backend `plugins` folder.
-2. Restart. Paper/Spigot downloads the SQLite and MySQL libraries from `plugin.yml`.
-3. Edit `plugins/EPTempFly/config.yml` if you want the shop, trails, rewards or extra hooks.
-4. `/tempfly reload`
+* **Veritabanı:** Varsayılan olarak kurulum gerektirmeyen SQLite kullanır (`data.db`). Büyük sunucular için gelişmiş MySQL desteği de mevcuttur.
+* **Çoklu Dil Desteği:** Türkçe (`tr_TR`), İngilizce (`en_EN`), Almanca, Rusça, Arapça gibi 8 farklı dili destekler. Tüm mesajlar özelleştirilebilir.
 
-### Proxy sync (BungeeCord and Velocity)
+## 📊 PlaceholderAPI Desteklenen Değişkenler
 
-Put the **same jar** into the proxy `plugins` folder. No proxy config file is required.
+Menülerinizde veya bilgi tablolarınızda (scoreboard) uçuş verilerini göstermek için PlaceholderAPI kullanabilirsiniz:
+* `%eptempfly_time%` - Kalan uçuş süresini gösterir.
+* `%eptempfly_flying%` - Oyuncunun o an uçup uçmadığını gösterir (True/False).
+* `%eptempfly_locked%` - Oyuncunun uçuşunun kilitli olup olmadığını gösterir.
+* `%eptempfly_unlimited%` - Sınırsız uçuş yetkisi olup olmadığını gösterir.
 
-- BungeeCord loads `bungee.yml` (`com.eptempfly.proxy.BungeeBridge`).
-- Velocity loads `velocity-plugin.json` (`com.eptempfly.proxy.VelocityBridge`).
-- Backends use the channel `eptempfly:sync`.
+## 🔧 Sistem Gereksinimleri
 
-On join, a backend asks the proxy for that player's time. If the proxy has never seen the player, it keeps the backend database value and stores it. Later servers receive that value. Giving time with `/tempfly give` works across servers when the target is online on the network, or was seen by the proxy before.
+* **Java:** Java 21 veya daha üstü bir sürüm gereklidir.
+* **Sunucu Sürümü:** 1.17 ve sonrasındaki tüm Spigot, Paper ve Purpur sürümlerini destekler.
+* Hiçbir zorunlu ek eklenti gerektirmez, tamamen bağımsız çalışabilir.
 
-If the proxy plugin is not installed, `proxy.enabled` does nothing harmful: the server keeps using SQLite or MySQL as before.
+## ⌨️ Komutlar
 
-Do not point two backends at one MySQL table **and** enable proxy sync. Pick one shared source. Proxy sync is the one that matches a network where each backend has its own local database.
+**Oyuncu Komutları:**
+* `/tempfly` - Uçuşu açar veya kapatır.
+* `/tempfly time [oyuncu]` - Kendi kalan sürenizi veya başkasının süresini kontrol eder.
+* `/tempfly shop` - Süre satın alma marketini açar.
+* `/tempfly particles` - Uçuş efekti (partikül) seçme ekranını açar.
+* `/tempfly give <oyuncu> <süre>` - Başkasına süre gönderir (Örn: 10m, 1h).
 
-## Features
+**Yönetici Komutları:**
+* `/tempfly add <oyuncu> <süre>` - Oyuncuya belirtilen miktarda süre ekler.
+* `/tempfly set <oyuncu> <süre>` - Oyuncunun süresini net olarak belirler.
+* `/tempfly remove <oyuncu> <süre>` - Oyuncudan süre siler.
+* `/tempfly lock <oyuncu> [true/false]` - Bir oyuncunun uçmasını zorla kilitler.
+* `/tempfly reload` - Config ve dil dosyalarını yeniler.
 
-- Toggle flight with `/tempfly` when the player has time left
-- Time pauses on the ground (`general.pause-time-when-on-ground`)
-- Fall damage protection after flight ends
-- Action bar countdown
-- Staff add / set / remove / lock
-- Players give their own time to someone else, including across the proxy
-- Shop GUI for fly time (Vault or PlayerPoints)
-- Trail GUI; particles spawn while flying in the air
-- One-time or repeating join reward
-- Claim, island and region hooks (unchanged behaviour)
-- FactionsUUID regions
-- WorldGuard flag
-- PlaceholderAPI
-- CombatLogX, only while `pvp.enabled` is true
-- SQLite or MySQL
+## 🛡️ Yetkiler (Permissions)
 
-## Commands
-
-| Command | Description | Permission |
-|---|---|---|
-| `/tempfly` | Toggle flight | `eptempfly.use` |
-| `/tempfly time [player]` | Remaining time | use / admin for other players |
-| `/tempfly give <player> <time>` | Give your own time | `eptempfly.give` |
-| `/tempfly shop` | Fly time shop | `eptempfly.shop` |
-| `/tempfly particles` | Trail menu | `eptempfly.particle` |
-| `/tempfly add <player> <time>` | Add time | `eptempfly.admin` |
-| `/tempfly set <player> <time>` | Set time | `eptempfly.admin` |
-| `/tempfly remove <player> <time>` | Remove time | `eptempfly.admin` |
-| `/tempfly lock <player> [true/false]` | Lock flight | `eptempfly.admin` |
-| `/tempfly reload` | Reload config and language | `eptempfly.admin` |
-
-Aliases: `tfly`, `eptempfly`, `particle`, `trails`.
-
-Time examples: `90`, `10m`, `1h30m`, `1d2h`.
-
-## Permissions
-
-- `eptempfly.use` (default: true)
-- `eptempfly.shop` (default: true)
-- `eptempfly.give` (default: true)
-- `eptempfly.particle` (default: true)
-- `eptempfly.unlimited` (default: false)
-- `eptempfly.admin` (default: op)
-- `eptempfly.bypass.combat` (default: op)
-- `eptempfly.bypass-join-cleanup` (default: op)
-
-A trail can also set its own `permission` in the config. An empty permission means it is not extra-gated.
-
-## Placeholders
-
-PlaceholderAPI is a soft depend. If it is missing, the expansion is skipped.
-
-- `%eptempfly_time%` / `%eptempfly_remaining%`
-- `%eptempfly_time_seconds%`
-- `%eptempfly_flying%`
-- `%eptempfly_locked%`
-- `%eptempfly_unlimited%`
-- `%eptempfly_inclaim%`
-- `%eptempfly_canfly%`
-
-## Shop and economy
-
-`shop.currency` is `auto`, `vault` or `playerpoints`.
-
-- Vault is used when an economy provider is registered.
-- Set `shop.prefer-playerpoints: true` to charge PlayerPoints instead while still having Vault installed.
-- If neither plugin is installed, free offers (`cost: 0`) still work. Paid clicks are refused and the server keeps running.
-
-### Particles
-Simple trails added to `particles.yml` (total ~68 enabled options), including:
-
-`dripwater`, `driplava`, `snowball`, `slime`, `waterwake`, `waterdrop`, `mobspell`, `ambient`, `instant`, `spell`, `explosion`, `largeexplosion`, `smoke_large`, `spit`, `sneeze`, `composter`, `flash`, `falling_nectar`, `falling_honey`, `falling_lava`, `falling_water`, `landing_lava`, `dripping_honey`, `dripping_obsidian`, `falling_obsidian`, `landing_obsidian`, `electric_spark`, `cherry`, `white_ash`, `small_flame`, `soot`, `itemcrack`, `blockcrack`, `blockdust`
-
-Edit names, costs and materials in `particles.yml`. New defaults appear after `/tempfly reload` (existing keys are not overwritten if you already customized the file).
-
-## Join reward
-
-```yaml
-rewards:
-  enabled: false
-  once: true
-  time: 10m
-```
-
-Claimed players are stored in `rewards.yml` when `once` is true.
-
-## Hooks
-
-Every hook is optional. A missing plugin is logged and skipped. A hook that throws is caught and does not take the server down.
-
-| Hook | Config | Role |
-|---|---|---|
-| uxmClaims | `hooks.uxmclaims` | Claim roles, including a renamed default role |
-| GriefPrevention | `hooks.griefprevention` | Claim flight |
-| Residence | `hooks.residence` | Residence flight |
-| PlotSquared | `hooks.plotsquared` | Plot flight |
-| Lands | `hooks.lands` | Lands flight |
-| HuskClaims | `hooks.huskclaims` | Claim flight |
-| ExcellentClaims | `hooks.excellentclaims` | Claim flight |
-| SuperiorSkyblock2 | `hooks.superiorskyblock` | Island fly privilege |
-| BentoBox | `hooks.bentobox` | Island rank |
-| IridiumSkyblock | `hooks.iridiumskyblock` | Island flight |
-| FabledSkyblock | `hooks.fabledskyblock` | Island flight |
-| Towny | `hooks.towny` | Town flight |
-| GriefDefender | `hooks.griefdefender` | Claim flight |
-| WorldGuard | `hooks.worldguard` | Region flag (`flag-name`, default `FLY`) |
-| FactionsUUID | `hooks.factionsuuid` | Faction land. Not wilderness, safezone or warzone unless configured |
-| Vault | shop | Economy |
-| PlayerPoints | shop | Points currency |
-| PlaceholderAPI | `placeholderapi.enabled` | Placeholders |
-| CombatLogX | `combat.hook-external` | Extra in-combat check, only if `pvp.enabled` is true |
-
-FactionsUUID options:
-
-```yaml
-hooks:
-  factionsuuid:
-    enabled: false
-    allow-wilderness: false
-    members-can-fly: true
-    owners-only: false
-```
-
-The hook looks for the plugins `Factions` or `FactionsUUID` and only uses the API when those classes exist.
-
-## Storage
-
-```yaml
-storage:
-  method: sqlite   # or mysql
-```
-
-SQLite file: `plugins/EPTempFly/data/data.db`.
-
-MySQL keys live under `mysql` (`username`, `password`, `hostname`, `database`, `tablePrefix`). The comment in the config still applies: do not share one table between servers unless you know they must share it. Proxy sync is the supported way to share time.
-
-### Proxy sync (BungeeCord / Velocity)
-
-Put the **same jar** into the proxy `plugins` folder.
-
-- BungeeCord → `bungee.yml` (`com.eptempfly.proxy.BungeeBridge`)
-- Velocity → `velocity-plugin.json` (`com.eptempfly.proxy.VelocityBridge`)
-- Channel: `eptempfly:sync`
-
-Do not use MySQL shared table **and** proxy sync together. Pick one.
-
-## Languages
-
-`general.language`: `en_EN`, `tr_TR`, `zh_CN`, `ru_RU`, `ar_SA`, `de_DE`, `pt_BR`, `sq_AL`.
-
-Language files at `lang-version` 4 are replaced on startup with version 5. A backup is written next to the file first.
-
-## What did not change
-
-Claim checks, owner-only mode, auto enable on enter, disable on exit, pause while standing, PvP damage cooldown, teleport re-check, world blacklist and the SQL time format behave as in 1.0.4. New menus and the proxy channel sit beside that loop.
+* `eptempfly.use` - Temel uçuş komutunu kullanma yetkisi (Varsayılan: Açık).
+* `eptempfly.give` - Başkasına süre gönderme yetkisi (Varsayılan: Açık).
+* `eptempfly.shop` - Marketi açma yetkisi (Varsayılan: Açık).
+* `eptempfly.particle` - Efekt menüsünü açma yetkisi (Varsayılan: Açık).
+* `eptempfly.unlimited` - Sınırsız uçuş hakkı verir.
+* `eptempfly.admin` - Admin komutlarını kullanma yetkisi (Varsayılan: Sadece OP).
+* `eptempfly.bypass.combat` - Çatışma (PvP) sırasında uçuşun kapanmasını engeller.
