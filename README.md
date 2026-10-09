@@ -1,65 +1,82 @@
-# EPTempFly - Gelişmiş Süreli Uçuş Eklentisi
+# EPTempFly - Gelişmiş Süreli Uçuş Eklentisi (Sürüm 1.2.1)
 
-EPTempFly, oyuncularınıza belirli bir süreliğine uçma yeteneği (TempFly) vermenizi sağlayan, tamamen modern ve kapsamlı bir eklentidir. Oyuncularınızın uçuş deneyimini güvenli ve eğlenceli hale getirmek için tasarlandı.
+EPTempFly, oyuncularınıza belirli bir süreliğine uçma yeteneği (TempFly) vermenizi sağlayan, tamamen modern, kapsamlı ve performanslı bir eklentidir. Oyuncularınızın uçuş deneyimini güvenli ve adil hale getirmek için tasarlanmıştır.
 
 ## 🌟 Neden EPTempFly?
 
-Bu eklenti sadece süre vermekle kalmaz, oyuncu deneyimini bozan sorunları çözer:
-
-* **Zaman İsrafı Yok:** Oyuncular yere indiklerinde veya yürüdüklerinde uçuş süresi otomatik olarak duraklatılır. Sadece gerçekten havadayken süre eksilir.
+* **Zaman İsrafı Yok:** Oyuncular yere indiklerinde veya yürüdüklerinde uçuş süresi otomatik olarak duraklatılır (`general.pause-time-when-on-ground`). Sadece gerçekten havadayken süre eksilir.
 * **Düşme Koruması:** Oyuncunun uçuş süresi havadayken biterse, eklenti oyuncunun yere güvenli bir şekilde inmesini sağlar ve düşme hasarını engeller.
-* **Görsel Şölen (Partiküller):** Oyuncular, uçarken arkalarında bırakabilecekleri 33'ten fazla farklı partikül efektinden (örn. ateş, su damlası, duman) birini seçebilirler.
-* **Oyuncular Arası Paylaşım:** Oyuncular kendi uçuş sürelerini istedikleri zaman başka oyunculara hediye edebilir veya aktarabilirler.
-
-## ⚙️ Temel Sistemler ve Entegrasyonlar
-
-* **Oyun İçi Market:** Vault veya PlayerPoints kullanarak, oyuncularınıza doğrudan menü (GUI) üzerinden uçuş süresi satabilirsiniz.
-* **Bölge ve Ada Koruması:** SuperiorSkyblock2, uxmClaims, WorldGuard, GriefPrevention, FactionsUUID gibi birçok popüler arazi ve ada eklentisiyle tam uyumlu çalışır. Yetkisiz bölgelerde uçuşu engeller.
-* **Çatışma (PvP) Kontrolü:** PvPManager veya CombatLogX ile entegre çalışır. Oyuncu savaşa girdiğinde uçuş otomatik olarak kapatılır.
+* **Görsel Şölen (Partiküller):** Oyuncular, havada uçarken arkalarında bırakabilecekleri 68 farklı partikül efektinden (1.2.1 ile 33 yeni efekt eklendi) birini seçebilirler. Maliyeti "0" olan partiküller oyunculara ücretsiz sunulur.
+* **Süre Paylaşımı:** Oyuncular kendi uçuş sürelerini istedikleri zaman başka oyunculara hediye edebilir veya aktarabilirler. Bu işlem proxy (BungeeCord/Velocity) üzerinden farklı sunuculardaki oyunculara da yapılabilir.
 * **Giriş Ödülleri:** Sunucunuza ilk defa veya her katıldıklarında oyunculara otomatik uçuş süresi hediye edebilirsiniz.
-* **Ağ (Proxy) Desteği:** BungeeCord ve Velocity desteği sayesinde oyuncuların uçuş süresi tüm sunucularınız arasında sorunsuzca senkronize olur. Sadece .jar dosyasını Proxy sunucunuza da yüklemeniz yeterlidir.
 
-## 💾 Veri Depolama ve Dil Desteği
+## 🔗 Tam Desteklenen Eklentiler (Hooks)
 
-* **Veritabanı:** Varsayılan olarak kurulum gerektirmeyen SQLite kullanır (`data.db`). Büyük sunucular için gelişmiş MySQL desteği de mevcuttur.
-* **Çoklu Dil Desteği:** Türkçe (`tr_TR`), İngilizce (`en_EN`), Almanca, Rusça, Arapça gibi 8 farklı dili destekler. Tüm mesajlar özelleştirilebilir.
+EPTempFly, sunucunuzdaki diğer sistemleri bozmamak için birçok eklenti ile entegre çalışır. Bu eklentiler zorunlu değildir, yüklü iseler otomatik olarak algılanır.
 
-## 📊 PlaceholderAPI Desteklenen Değişkenler
+**Arazi, Bölge ve Ada Eklentileri:**
+Aşağıdaki eklentilerde sadece izin verilen bölgelerde uçuşa müsaade edilir:
+* **uxmClaims:** Bölge rolleri ile tam uyum.
+* **SuperiorSkyblock2:** Ada uçuş yetkisi kontrolü.
+* **WorldGuard:** Belirli bölgelerde uçuşu açıp kapatmak için `FLY` bayrağı (flag) desteği.
+* **FactionsUUID:** Klan arazilerinde uçuş. (İsteğe bağlı olarak vahşi doğa ve savaş alanlarında kapatılabilir).
+* **Diğer Desteklenenler:** GriefPrevention, Residence, PlotSquared, Lands, HuskClaims, ExcellentClaims, BentoBox, IridiumSkyblock, FabledSkyblock, Towny, GriefDefender.
 
-Menülerinizde veya bilgi tablolarınızda (scoreboard) uçuş verilerini göstermek için PlaceholderAPI kullanabilirsiniz:
-* `%eptempfly_time%` - Kalan uçuş süresini gösterir.
+**Savaş ve PvP Eklentileri:**
+* **PvPManager:** (v4 API Uyumlu) Oyuncu savaşa girdiğinde uçuş anında kapatılır.
+* **CombatLogX:** Çatışma sırasında uçuş engellenir.
+
+**Ekonomi Eklentileri (Market İçin):**
+* **Vault:** Oyun içi para ile süre satışı.
+* **PlayerPoints:** Kredi/Puan ile süre satışı.
+
+## 📊 PlaceholderAPI Değişkenleri
+
+Menülerinizde veya bilgi tablolarınızda (scoreboard) kullanabileceğiniz değişkenler:
+* `%eptempfly_time%` / `%eptempfly_remaining%` - Kalan uçuş süresini gösterir (Örn: 1h 30m).
+* `%eptempfly_time_seconds%` - Kalan süreyi saniye cinsinden verir.
 * `%eptempfly_flying%` - Oyuncunun o an uçup uçmadığını gösterir (True/False).
 * `%eptempfly_locked%` - Oyuncunun uçuşunun kilitli olup olmadığını gösterir.
 * `%eptempfly_unlimited%` - Sınırsız uçuş yetkisi olup olmadığını gösterir.
+* `%eptempfly_inclaim%` - Oyuncunun uçuş izni olan bir bölgede olup olmadığını gösterir.
+* `%eptempfly_canfly%` - Oyuncunun genel olarak uçabilme durumunu gösterir.
 
-## 🔧 Sistem Gereksinimleri
+## 💾 Veritabanı ve Sunucu Ağı (Proxy)
 
-* **Java:** Java 21 veya daha üstü bir sürüm gereklidir.
-* **Sunucu Sürümü:** 1.17 ve sonrasındaki tüm Spigot, Paper ve Purpur sürümlerini destekler.
-* Hiçbir zorunlu ek eklenti gerektirmez, tamamen bağımsız çalışabilir.
+* **Bağımsız Sunucular:** Varsayılan olarak ekstra kurulum gerektirmeyen hızlı SQLite (`data.db`) kullanır. İstenirse MySQL bağlanabilir.
+* **BungeeCord / Velocity Desteği:** Eğer birden fazla sunucudan oluşan bir ağınız varsa, `EPTempFly.jar` dosyasını proxy sunucunuzun `plugins` klasörüne atmanız yeterlidir. Ortak MySQL tablosu kurmanıza gerek kalmadan `eptempfly:sync` kanalı üzerinden oyuncuların süreleri tüm sunucularda otomatik senkronize olur.
 
-## ⌨️ Komutlar
+## 🌍 Dil Desteği
 
-**Oyuncu Komutları:**
-* `/tempfly` - Uçuşu açar veya kapatır.
-* `/tempfly time [oyuncu]` - Kendi kalan sürenizi veya başkasının süresini kontrol eder.
-* `/tempfly shop` - Süre satın alma marketini açar.
-* `/tempfly particles` - Uçuş efekti (partikül) seçme ekranını açar.
-* `/tempfly give <oyuncu> <süre>` - Başkasına süre gönderir (Örn: 10m, 1h).
+Eklenti 8 farklı dili destekler ve `config.yml` üzerinden tek tıkla değiştirilebilir:
+* Türkçe (`tr_TR`), İngilizce (`en_EN`), Almanca (`de_DE`), Rusça (`ru_RU`), Arapça (`ar_SA`), Çince (`zh_CN`), Portekizce (`pt_BR`), Arnavutça (`sq_AL`).
 
-**Yönetici Komutları:**
-* `/tempfly add <oyuncu> <süre>` - Oyuncuya belirtilen miktarda süre ekler.
-* `/tempfly set <oyuncu> <süre>` - Oyuncunun süresini net olarak belirler.
-* `/tempfly remove <oyuncu> <süre>` - Oyuncudan süre siler.
-* `/tempfly lock <oyuncu> [true/false]` - Bir oyuncunun uçmasını zorla kilitler.
+## 💻 Geliştirici API'si (Developer API)
+
+Kendi eklentilerinizi entegre etmek için kolay API desteği:
+```java
+EPTempFly api = Bukkit.getServicesManager().load(EPTempFly.class);
+// Veya alternatif olarak: EPTempFlyAPI.get()
+```
+* **Etkinlikler (Events):** `TempFlyToggleEvent` (Uçuş açıldığında veya kapandığında tetiklenir).
+
+## ⌨️ Komutlar ve Yetkiler
+
+**Temel Komutlar:**
+* `/tempfly` - Uçuşu açar/kapatır (`eptempfly.use`).
+* `/tempfly time [oyuncu]` - Kalan süreyi kontrol eder.
+* `/tempfly give <oyuncu> <süre>` - Başkasına kendi süresinden gönderir (`eptempfly.give`).
+* `/tempfly shop` - Süre marketini açar (`eptempfly.shop`).
+* `/tempfly particles` - Efekt menüsünü açar (`eptempfly.particle`).
+
+**Yönetici Komutları (`eptempfly.admin`):**
+* `/tempfly add <oyuncu> <süre>` - Süre ekler.
+* `/tempfly set <oyuncu> <süre>` - Süreyi değiştirir.
+* `/tempfly remove <oyuncu> <süre>` - Süre siler.
+* `/tempfly lock <oyuncu> [true/false]` - Uçuşu kilitler.
 * `/tempfly reload` - Config ve dil dosyalarını yeniler.
 
-## 🛡️ Yetkiler (Permissions)
-
-* `eptempfly.use` - Temel uçuş komutunu kullanma yetkisi (Varsayılan: Açık).
-* `eptempfly.give` - Başkasına süre gönderme yetkisi (Varsayılan: Açık).
-* `eptempfly.shop` - Marketi açma yetkisi (Varsayılan: Açık).
-* `eptempfly.particle` - Efekt menüsünü açma yetkisi (Varsayılan: Açık).
-* `eptempfly.unlimited` - Sınırsız uçuş hakkı verir.
-* `eptempfly.admin` - Admin komutlarını kullanma yetkisi (Varsayılan: Sadece OP).
-* `eptempfly.bypass.combat` - Çatışma (PvP) sırasında uçuşun kapanmasını engeller.
+**Ekstra Yetkiler:**
+* `eptempfly.unlimited` - Sınırsız uçuş hakkı.
+* `eptempfly.bypass.combat` - Çatışma kısıtlamalarını görmezden gelir.
+* `eptempfly.bypass.world` - Kapatılmış dünyalarda uçabilme izni.
