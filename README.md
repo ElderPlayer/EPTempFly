@@ -195,7 +195,7 @@ Events: `TempFlyToggleEvent` (ENABLE / DISABLE).
 
 ---
 
-## Support hooks (soft)
+## Support hooks (It works without relying on any plugins; it only provides support.)
 
 uxmClaims, GriefPrevention, Residence, PlotSquared, Lands, HuskClaims, ExcellentClaims, SuperiorSkyblock2, BentoBox, IridiumSkyblock, FabledSkyblock, Towny, GriefDefender, WorldGuard, FactionsUUID, PlaceholderAPI, Vault, PlayerPoints, CombatLogX, **PvPManager**
 
