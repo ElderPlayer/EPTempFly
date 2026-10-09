@@ -1,82 +1,82 @@
-# EPTempFly - Gelişmiş Süreli Uçuş Eklentisi (Sürüm 1.2.1)
+# EPTempFly - Advanced Temporary Flight Plugin (Version 1.2.1)
 
-EPTempFly, oyuncularınıza belirli bir süreliğine uçma yeteneği (TempFly) vermenizi sağlayan, tamamen modern, kapsamlı ve performanslı bir eklentidir. Oyuncularınızın uçuş deneyimini güvenli ve adil hale getirmek için tasarlanmıştır.
+EPTempFly is a fully modern, comprehensive, and performant plugin that grants your players temporary flight abilities (TempFly). It is designed to make your players' flight experience safe, fair, and highly customizable.
 
-## 🌟 Neden EPTempFly?
+## 🌟 Why EPTempFly?
 
-* **Zaman İsrafı Yok:** Oyuncular yere indiklerinde veya yürüdüklerinde uçuş süresi otomatik olarak duraklatılır (`general.pause-time-when-on-ground`). Sadece gerçekten havadayken süre eksilir.
-* **Düşme Koruması:** Oyuncunun uçuş süresi havadayken biterse, eklenti oyuncunun yere güvenli bir şekilde inmesini sağlar ve düşme hasarını engeller.
-* **Görsel Şölen (Partiküller):** Oyuncular, havada uçarken arkalarında bırakabilecekleri 68 farklı partikül efektinden (1.2.1 ile 33 yeni efekt eklendi) birini seçebilirler. Maliyeti "0" olan partiküller oyunculara ücretsiz sunulur.
-* **Süre Paylaşımı:** Oyuncular kendi uçuş sürelerini istedikleri zaman başka oyunculara hediye edebilir veya aktarabilirler. Bu işlem proxy (BungeeCord/Velocity) üzerinden farklı sunuculardaki oyunculara da yapılabilir.
-* **Giriş Ödülleri:** Sunucunuza ilk defa veya her katıldıklarında oyunculara otomatik uçuş süresi hediye edebilirsiniz.
+* **No Time Wasted:** Flight time automatically pauses when players land on the ground or walk (`general.pause-time-when-on-ground`). Time is only deducted when they are actually flying in the air.
+* **Fall Damage Protection:** If a player's flight time runs out mid-air, the plugin ensures they land safely and completely prevents fall damage.
+* **Visual Feast (Particles):** Players can choose from 68 different particle trail effects (33 new effects added in 1.2.1) to display while flying. Particles with a cost of "0" are offered to players for free.
+* **Time Sharing:** Players can gift or transfer their own flight time to others at any time. This action is also fully supported across different servers via proxy networks (BungeeCord/Velocity).
+* **Join Rewards:** You can automatically grant free flight time to players when they join your server for the first time, or on every join.
 
-## 🔗 Tam Desteklenen Eklentiler (Hooks)
+## 🔗 Fully Supported Plugins (Hooks)
 
-EPTempFly, sunucunuzdaki diğer sistemleri bozmamak için birçok eklenti ile entegre çalışır. Bu eklentiler zorunlu değildir, yüklü iseler otomatik olarak algılanır.
+EPTempFly seamlessly integrates with many other plugins to ensure it doesn't break your server's existing systems. These hooks are strictly optional and automatically detected if installed.
 
-**Arazi, Bölge ve Ada Eklentileri:**
-Aşağıdaki eklentilerde sadece izin verilen bölgelerde uçuşa müsaade edilir:
-* **uxmClaims:** Bölge rolleri ile tam uyum.
-* **SuperiorSkyblock2:** Ada uçuş yetkisi kontrolü.
-* **WorldGuard:** Belirli bölgelerde uçuşu açıp kapatmak için `FLY` bayrağı (flag) desteği.
-* **FactionsUUID:** Klan arazilerinde uçuş. (İsteğe bağlı olarak vahşi doğa ve savaş alanlarında kapatılabilir).
-* **Diğer Desteklenenler:** GriefPrevention, Residence, PlotSquared, Lands, HuskClaims, ExcellentClaims, BentoBox, IridiumSkyblock, FabledSkyblock, Towny, GriefDefender.
+**Land, Region, and Island Plugins:**
+Flight is exclusively permitted within allowed regions for the following plugins:
+* **uxmClaims:** Full compatibility with claim roles.
+* **SuperiorSkyblock2:** Island flight privilege verification.
+* **WorldGuard:** `FLY` flag support to toggle flight in specific regions.
+* **FactionsUUID:** Flight in faction lands. (Can be optionally disabled in wilderness, warzones, and safezones).
+* **Other Supported Plugins:** GriefPrevention, Residence, PlotSquared, Lands, HuskClaims, ExcellentClaims, BentoBox, IridiumSkyblock, FabledSkyblock, Towny, GriefDefender.
 
-**Savaş ve PvP Eklentileri:**
-* **PvPManager:** (v4 API Uyumlu) Oyuncu savaşa girdiğinde uçuş anında kapatılır.
-* **CombatLogX:** Çatışma sırasında uçuş engellenir.
+**Combat and PvP Plugins:**
+* **PvPManager:** (v4 API Compatible) Flight is instantly disabled when a player enters combat.
+* **CombatLogX:** Flight is disabled during combat tagging.
 
-**Ekonomi Eklentileri (Market İçin):**
-* **Vault:** Oyun içi para ile süre satışı.
-* **PlayerPoints:** Kredi/Puan ile süre satışı.
+**Economy Plugins (For Shop):**
+* **Vault:** Sell flight time using in-game currency.
+* **PlayerPoints:** Sell flight time using credits/points.
 
-## 📊 PlaceholderAPI Değişkenleri
+## 📊 PlaceholderAPI Variables
 
-Menülerinizde veya bilgi tablolarınızda (scoreboard) kullanabileceğiniz değişkenler:
-* `%eptempfly_time%` / `%eptempfly_remaining%` - Kalan uçuş süresini gösterir (Örn: 1h 30m).
-* `%eptempfly_time_seconds%` - Kalan süreyi saniye cinsinden verir.
-* `%eptempfly_flying%` - Oyuncunun o an uçup uçmadığını gösterir (True/False).
-* `%eptempfly_locked%` - Oyuncunun uçuşunun kilitli olup olmadığını gösterir.
-* `%eptempfly_unlimited%` - Sınırsız uçuş yetkisi olup olmadığını gösterir.
-* `%eptempfly_inclaim%` - Oyuncunun uçuş izni olan bir bölgede olup olmadığını gösterir.
-* `%eptempfly_canfly%` - Oyuncunun genel olarak uçabilme durumunu gösterir.
+Useful placeholders for your menus, scoreboards, or chat formatting:
+* `%eptempfly_time%` / `%eptempfly_remaining%` - Shows remaining flight time (e.g., 1h 30m).
+* `%eptempfly_time_seconds%` - Shows remaining flight time in exact seconds.
+* `%eptempfly_flying%` - Returns whether the player is currently flying (True/False).
+* `%eptempfly_locked%` - Returns whether the player's flight is administratively locked.
+* `%eptempfly_unlimited%` - Returns whether the player has unlimited flight bypass.
+* `%eptempfly_inclaim%` - Returns whether the player is in an allowed claim region.
+* `%eptempfly_canfly%` - Returns the player's general ability to fly.
 
-## 💾 Veritabanı ve Sunucu Ağı (Proxy)
+## 💾 Database and Server Network (Proxy)
 
-* **Bağımsız Sunucular:** Varsayılan olarak ekstra kurulum gerektirmeyen hızlı SQLite (`data.db`) kullanır. İstenirse MySQL bağlanabilir.
-* **BungeeCord / Velocity Desteği:** Eğer birden fazla sunucudan oluşan bir ağınız varsa, `EPTempFly.jar` dosyasını proxy sunucunuzun `plugins` klasörüne atmanız yeterlidir. Ortak MySQL tablosu kurmanıza gerek kalmadan `eptempfly:sync` kanalı üzerinden oyuncuların süreleri tüm sunucularda otomatik senkronize olur.
+* **Standalone Servers:** Uses extremely fast, zero-setup SQLite (`data.db`) by default. MySQL can be configured if preferred.
+* **BungeeCord / Velocity Support:** If you have a multi-server network, simply drop the `EPTempFly.jar` into your proxy's `plugins` folder. Player flight times will automatically synchronize across all backend servers via the `eptempfly:sync` channel, without requiring a shared MySQL table.
 
-## 🌍 Dil Desteği
+## 🌍 Language Support
 
-Eklenti 8 farklı dili destekler ve `config.yml` üzerinden tek tıkla değiştirilebilir:
-* Türkçe (`tr_TR`), İngilizce (`en_EN`), Almanca (`de_DE`), Rusça (`ru_RU`), Arapça (`ar_SA`), Çince (`zh_CN`), Portekizce (`pt_BR`), Arnavutça (`sq_AL`).
+The plugin supports 8 different languages out of the box, changeable with a single click in `config.yml`:
+* English (`en_EN`), Turkish (`tr_TR`), German (`de_DE`), Russian (`ru_RU`), Arabic (`ar_SA`), Chinese (`zh_CN`), Portuguese (`pt_BR`), Albanian (`sq_AL`).
 
-## 💻 Geliştirici API'si (Developer API)
+## 💻 Developer API
 
-Kendi eklentilerinizi entegre etmek için kolay API desteği:
+Easy integration for your custom plugins:
 ```java
 EPTempFly api = Bukkit.getServicesManager().load(EPTempFly.class);
-// Veya alternatif olarak: EPTempFlyAPI.get()
+// Or alternatively: EPTempFlyAPI.get()
 ```
-* **Etkinlikler (Events):** `TempFlyToggleEvent` (Uçuş açıldığında veya kapandığında tetiklenir).
+* **Events:** `TempFlyToggleEvent` (Triggered when flight is enabled or disabled).
 
-## ⌨️ Komutlar ve Yetkiler
+## ⌨️ Commands and Permissions
 
-**Temel Komutlar:**
-* `/tempfly` - Uçuşu açar/kapatır (`eptempfly.use`).
-* `/tempfly time [oyuncu]` - Kalan süreyi kontrol eder.
-* `/tempfly give <oyuncu> <süre>` - Başkasına kendi süresinden gönderir (`eptempfly.give`).
-* `/tempfly shop` - Süre marketini açar (`eptempfly.shop`).
-* `/tempfly particles` - Efekt menüsünü açar (`eptempfly.particle`).
+**Basic Commands:**
+* `/tempfly` - Toggles flight (`eptempfly.use`).
+* `/tempfly time [player]` - Checks remaining flight time.
+* `/tempfly give <player> <time>` - Sends your own flight time to another player (`eptempfly.give`).
+* `/tempfly shop` - Opens the time shop menu (`eptempfly.shop`).
+* `/tempfly particles` - Opens the particle trails menu (`eptempfly.particle`).
 
-**Yönetici Komutları (`eptempfly.admin`):**
-* `/tempfly add <oyuncu> <süre>` - Süre ekler.
-* `/tempfly set <oyuncu> <süre>` - Süreyi değiştirir.
-* `/tempfly remove <oyuncu> <süre>` - Süre siler.
-* `/tempfly lock <oyuncu> [true/false]` - Uçuşu kilitler.
-* `/tempfly reload` - Config ve dil dosyalarını yeniler.
+**Admin Commands (`eptempfly.admin`):**
+* `/tempfly add <player> <time>` - Adds flight time to a player.
+* `/tempfly set <player> <time>` - Sets a player's flight time.
+* `/tempfly remove <player> <time>` - Removes flight time from a player.
+* `/tempfly lock <player> [true/false]` - Locks or unlocks a player's flight.
+* `/tempfly reload` - Reloads configuration and language files.
 
-**Ekstra Yetkiler:**
-* `eptempfly.unlimited` - Sınırsız uçuş hakkı.
-* `eptempfly.bypass.combat` - Çatışma kısıtlamalarını görmezden gelir.
-* `eptempfly.bypass.world` - Kapatılmış dünyalarda uçabilme izni.
+**Extra Permissions:**
+* `eptempfly.unlimited` - Grants unlimited flight time.
+* `eptempfly.bypass.combat` - Bypasses combat flight restrictions.
+* `eptempfly.bypass.world` - Allows flight in disabled/blacklisted worlds.
